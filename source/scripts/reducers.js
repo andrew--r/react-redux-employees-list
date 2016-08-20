@@ -1,16 +1,22 @@
 import {
-	OPEN_MODAL,
+	CREATE_EMPLOYEE,
 } from './consts';
 
 const initialState = {
-	openedModal: null,
+	lastEmployeeId: 0,
+	employees: [],
 };
 
 export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
-		case OPEN_MODAL: {
+		case CREATE_EMPLOYEE: {
+			const newEmployee = Object.assign({}, action.payload, {
+				id: state.lastEmployeeId + 1,
+			});
+
 			return Object.assign({}, state, {
-				openedModal: action.payload,
+				lastEmployeeId: newEmployee.id,
+				employees: state.employees.concat(newEmployee),
 			});
 		}
 

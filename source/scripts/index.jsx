@@ -8,13 +8,31 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import Routes from './Routes';
 import rootReducer from './reducers';
 
+function getInitialState() {
+	let result;
+	const storedState = localStorage.getItem('appState');
+
+	try {
+		result = JSON.parse(storedState);
+	} catch (e) {
+		console.error(e);
+	}
+
+	console.log('result', result)
+
+	return result || {};
+}
+
 const store = createStore(
 	combineReducers({
 		rootReducer,
 		routing: routerReducer,
 	}),
+	getInitialState(),
 	window.devToolsExtension && window.devToolsExtension()
 );
+
+store.subscribe(() => localStorage.setItem('appState', JSON.stringify(store.getState())));
 
 const history = syncHistoryWithStore(hashHistory, store);
 

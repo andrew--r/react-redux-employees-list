@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Modal from './components/Modal';
+import AddEmployee from './components/AddEmployee';
 
 const App = React.createClass({
 	render() {
@@ -21,7 +22,7 @@ const App = React.createClass({
 function AddModal() {
 	return (
 		<Modal title="Добавление сотрудника">
-			контент
+			<AddEmployee />
 		</Modal>
 	);
 }

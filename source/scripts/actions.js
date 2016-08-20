@@ -1,10 +1,10 @@
 import {
-	OPEN_MODAL,
+	CREATE_EMPLOYEE,
 } from './consts';
 
-export function openModal(name) {
+export function createEmployee(payload) {
 	return {
-		type: OPEN_MODAL,
-		payload: name,
+		type: CREATE_EMPLOYEE,
+		payload,
 	};
 }
