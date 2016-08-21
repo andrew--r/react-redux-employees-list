@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {hashHistory} from 'react-router';
+import {removeModalFromQuery} from '../helpers';
 
 import {createEmployee} from '../actions';
 import EmployeeForm from './EmployeeForm';
@@ -7,15 +9,22 @@ import EmployeeForm from './EmployeeForm';
 
 const AddEmployee = React.createClass({
 	render() {
-		const {dispatch} = this.props;
+		const {dispatch, routing} = this.props;
 		return (
 			<EmployeeForm
-				firstName="Андрей"
-				lastName="Романов"
-				onSubmit={(employeeInfo) => dispatch(createEmployee(employeeInfo))}
+				onSubmit={(employeeInfo) => {
+					dispatch(createEmployee(employeeInfo));
+					hashHistory.push(removeModalFromQuery(routing));
+				}}
 			/>
 		);
 	},
 });
 
-export default connect()(AddEmployee);
+function mapStateToProps(state) {
+	return {
+		routing: state.routing.locationBeforeTransitions,
+	};
+}
+
+export default connect(mapStateToProps)(AddEmployee);

@@ -15,10 +15,8 @@ function getInitialState() {
 	try {
 		result = JSON.parse(storedState);
 	} catch (e) {
-		console.error(e);
+		console.error(e); // eslint-disable-line no-console
 	}
-
-	console.log('result', result)
 
 	return result || {};
 }

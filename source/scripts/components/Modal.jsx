@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
-import {queryToString} from '../helpers';
+import {removeModalFromQuery} from '../helpers';
 
 
 const Modal = React.createClass({
@@ -12,8 +12,7 @@ const Modal = React.createClass({
 			const {target: {classList}} = event;
 
 			if (classList.contains('modal') || classList.contains('modal__close')) {
-				const queryString = queryToString(routing.query, ['modal']);
-				hashHistory.push(routing.pathname + queryString);
+				hashHistory.push(removeModalFromQuery(routing));
 			}
 		});
 	},
@@ -25,7 +24,7 @@ const Modal = React.createClass({
 				<div className="modal__window">
 					<div className="modal__close" />
 					<div className="modal__content">
-						<h2 className="modal__titl">{props.title}</h2>
+						<h2 className="modal__title">{props.title}</h2>
 						{props.children}
 					</div>
 				</div>

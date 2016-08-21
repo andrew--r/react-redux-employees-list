@@ -6,3 +6,8 @@ export function queryToString(query, excludeList) {
 
 	return params.length ? `?${params.join('&')}` : '';
 }
+
+export function removeModalFromQuery(routing) {
+	const queryString = queryToString(routing.query, ['modal']);
+	return routing.pathname + queryString;
+}
