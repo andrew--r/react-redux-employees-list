@@ -1,9 +1,10 @@
 import {
 	CREATE_EMPLOYEE,
+	UPDATE_EMPLOYEE_INFO,
 } from './consts';
 
 const initialState = {
-	lastEmployeeId: 0,
+	lastEmployeeId: -1,
 	employees: [],
 };
 
@@ -17,6 +18,18 @@ export default function rootReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				lastEmployeeId: newEmployee.id,
 				employees: state.employees.concat(newEmployee),
+			});
+		}
+
+		case UPDATE_EMPLOYEE_INFO: {
+			const employeeIndex = action.payload.id;
+			const {employees} = state;
+			return Object.assign({}, state, {
+				employees: [
+					...employees.slice(0, employeeIndex),
+					action.payload,
+					...employees.slice(employeeIndex + 1),
+				],
 			});
 		}
 

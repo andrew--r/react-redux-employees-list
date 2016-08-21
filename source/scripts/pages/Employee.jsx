@@ -1,29 +1,33 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import EmployeesTable from '../components/EmployeesTable';
 
 const Employee = React.createClass({
 	render() {
 		const {props} = this;
-		const editModalUrl = {
-			pathname: props.pathname,
-			query: {modal: 'editEmployee'},
-		};
+		const {employee} = props;
 
 		return (
 			<div>
-				<p><Link to={editModalUrl}>Редактировать</Link></p>
-				<EmployeesTable employees={props.employees} pathname={props.pathname} />
+				<p>
+					<Link to="/employees">← Ко всем сотрудникам</Link>
+					{' • '}
+					<Link to={`/employees/${props.params.id}/edit`}>Редактировать</Link>
+				</p>
+				<h2>
+					{`${employee.firstName} ${employee.lastName}`},{' '}
+					<small>{employee.position.toLowerCase()}</small>
+				</h2>
+				<p>{employee.description}</p>
+				{props.children}
 			</div>
 		);
 	},
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
 	return {
-		employees: state.rootReducer.employees,
-		pathname: state.routing.locationBeforeTransitions.pathname,
+		employee: state.rootReducer.employees[ownProps.params.id],
 	};
 }
 

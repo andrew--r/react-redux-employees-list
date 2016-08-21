@@ -4,6 +4,7 @@ import App from './App';
 import EmployeesList from './pages/EmployeesList';
 import AddEmployeeModal from './components/AddEmployeeModal';
 import Employee from './pages/Employee';
+import EditEmployeeModal from './components/EditEmployeeModal';
 
 export default function Routes(props) {
 	return (
@@ -13,7 +14,9 @@ export default function Routes(props) {
 				<Route path="employees" component={EmployeesList}>
 					<Route path="add" component={AddEmployeeModal} />
 				</Route>
-				<Route path="employees/:id" component={Employee} />
+				<Route path="employees/:id" component={Employee}>
+					<Route path="edit" component={EditEmployeeModal} />
+				</Route>
 			</Route>
 		</Router>
 	);
