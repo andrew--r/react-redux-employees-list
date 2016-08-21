@@ -1,12 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, hashHistory} from 'react-router';
 
 export default function EmployeesTable(props) {
-	const {employees, pathname} = props;
-	const addModalUrl = {
-		pathname,
-		query: {modal: 'addEmployee'},
-	};
+	const {employees} = props;
 	let result;
 
 	if (employees.length) {
@@ -21,7 +17,11 @@ export default function EmployeesTable(props) {
 				</thead>
 				<tbody>
 					{props.employees.map((employee) => (
-						<tr key={employee.id}>
+						<tr
+							key={employee.id}
+							className="u-clickable"
+							onClick={() => hashHistory.push(`employees/${employee.id}`)}
+						>
 							<td>{employee.firstName}</td>
 							<td>{employee.lastName}</td>
 							<td>{employee.position}</td>
@@ -32,7 +32,7 @@ export default function EmployeesTable(props) {
 		);
 	} else {
 		result = (
-			<p>Список сотрудников пуст. <Link to={addModalUrl}>Добавьте нового!</Link></p>
+			<p>Список сотрудников пуст. <Link to="/employees/add">Добавьте нового!</Link></p>
 		);
 	}
 

@@ -6,15 +6,12 @@ import EmployeesTable from '../components/EmployeesTable';
 const EmployeeList = React.createClass({
 	render() {
 		const {props} = this;
-		const addModalUrl = {
-			pathname: props.pathname,
-			query: {modal: 'addEmployee'},
-		};
 
 		return (
 			<div>
-				<p><Link to={addModalUrl}>Добавить</Link></p>
-				<EmployeesTable employees={props.employees} pathname={props.pathname} />
+				<p><Link to="/employees/add">Добавить</Link></p>
+				<EmployeesTable employees={props.employees} />
+				{props.children}
 			</div>
 		);
 	},
@@ -23,7 +20,6 @@ const EmployeeList = React.createClass({
 function mapStateToProps(state) {
 	return {
 		employees: state.rootReducer.employees,
-		pathname: state.routing.locationBeforeTransitions.pathname,
 	};
 }
 

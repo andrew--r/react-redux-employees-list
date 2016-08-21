@@ -1,18 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {hashHistory} from 'react-router';
-import {removeModalFromQuery} from '../helpers';
+import {hashHistory, Link} from 'react-router';
 
 
 const Modal = React.createClass({
 	componentDidMount() {
-		const {routing} = this.props;
-
 		this.root.addEventListener('click', (event) => {
-			const {target: {classList}} = event;
+			const {target, currentTarget} = event;
 
-			if (classList.contains('modal') || classList.contains('modal__close')) {
-				hashHistory.push(removeModalFromQuery(routing));
+			if (currentTarget === target) {
+				hashHistory.push(this.props.prevUrl);
 			}
 		});
 	},
@@ -22,7 +19,7 @@ const Modal = React.createClass({
 		return (
 			<div ref={(root) => (this.root = root)} className="modal">
 				<div className="modal__window">
-					<div className="modal__close" />
+					<Link to={this.props.prevUrl} className="modal__close" />
 					<div className="modal__content">
 						<h2 className="modal__title">{props.title}</h2>
 						{props.children}
@@ -33,10 +30,4 @@ const Modal = React.createClass({
 	},
 });
 
-function mapStateToProps(state) {
-	return {
-		routing: state.routing.locationBeforeTransitions,
-	};
-}
-
-export default connect(mapStateToProps)(Modal);
+export default connect()(Modal);
