@@ -6,6 +6,7 @@ import AddEmployeeModal from './components/AddEmployeeModal';
 import Employee from './pages/Employee';
 import EditEmployeeModal from './components/EditEmployeeModal';
 
+
 export default function Routes(props) {
 	return (
 		<Router history={props.history}>

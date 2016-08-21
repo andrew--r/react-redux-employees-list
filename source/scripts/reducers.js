@@ -3,6 +3,7 @@ import {
 	UPDATE_EMPLOYEE_INFO,
 } from './consts';
 
+
 const initialState = {
 	lastEmployeeId: -1,
 	employees: [],

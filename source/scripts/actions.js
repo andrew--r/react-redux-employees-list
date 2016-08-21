@@ -3,6 +3,7 @@ import {
 	UPDATE_EMPLOYEE_INFO,
 } from './consts';
 
+
 export function createEmployee(payload) {
 	return {
 		type: CREATE_EMPLOYEE,

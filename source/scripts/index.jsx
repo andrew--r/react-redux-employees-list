@@ -8,6 +8,7 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import Routes from './Routes';
 import rootReducer from './reducers';
 
+
 function getInitialState() {
 	let result;
 	const storedState = localStorage.getItem('appState');
